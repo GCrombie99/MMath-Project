@@ -1,6 +1,6 @@
 function dpdt = deltanat(t,p)
-R = 5.14;
-alpha=0.19;
+R = 1.7;
+alpha=0.2;
 delta=0;
 
 dpdt = [p(1) .* (-1 + R*p(2));
