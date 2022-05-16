@@ -1,9 +1,12 @@
 %Nat line run in backwards time
-tspan = [5.71 0];
+tspan = [15.07 0];
 tstart = tspan(1);
-p0 = [0.156 0.19455];
-Iint=0.156;
-Inat=0.1525;
+Iint=0.1;
+Inat=0.08;
+alpha=0.2;
+delta=1.6;
+R0=1.7;
+p0 = [Iint 1/R0];
 t = tstart;
 p = p0;
 [t,p,te,pe,ie]=ode45(@deltanat,[t(end),tspan(end)],p(end, :),odeset('Events',@Vdash));
@@ -14,7 +17,7 @@ hold on
 tspan = [0 100];
 tstart = tspan(1);
 tend = tspan(end);
-p0 = [Iint 0.19455];
+p0 = [Iint 1/R0];
 t = tstart;
 p = p0;
 [t,p]=ode45(@deltaint,[t(end),tend],p(end,:));
@@ -32,13 +35,9 @@ plot(p(:,1),p(:,2))
 
 xline(Iint,'--')
 xline(Inat,'--')
-yline(0.19455,'--',{'S_{E}'})
-plot(0.15304, 0.19455, '.','MarkerSize',10) %Plot E
-%plot(Iint, 0.19455, '.','MarkerSize',10) %Plot O
-%plot(0.15218, 0.148558, '.','MarkerSize',10) %Plot F
-%plot(0.1525, 0.148075758184667, '.','MarkerSize',10) %Plot point
-%plot(0.156, 0.2071, '.','MarkerSize',10) %Plot point
-plot(0, 0.19/1.81, '.','MarkerSize',10) %Plot E*
+yline(1/R0,'--',{'S_{E}'})
+plot(alpha*(1-1/R0), 1/R0, '.','MarkerSize',10) %Plot E
+plot(0, alpha/delta+alpha, '.','MarkerSize',10) %Plot E*
 xlim([0 Iint+0.01])
 ylim([0 1])
 xlabel('I')
